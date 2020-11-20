@@ -12,6 +12,7 @@ ENV PROXY_AGENT  ""
 ENV LICENSE      ""
 ENV ADMIN_USER   "admin"
 ENV ADMIN_PASS   ""
+ENV PRODUCT_INITIALIZATION   "true"
 
 COPY nessus_startup.sh nessus_adduser.exp /usr/bin/
 COPY yum.repo /etc/yum.repos.d/Tenable.repo
@@ -27,9 +28,8 @@ RUN    yum -y -q install Nessus expect java-11-openjdk-headless         \
     && rm -f /opt/nessus/var/nessus/CA/cakey.pem                        \
     && rm -f /opt/nessus/var/nessus/CA/serverkey.pem                    \
     && rm -rf /tmp/*                                                    \
-    && ln -sf /dev/stdout /opt/nessus/var/nessus/logs/nessusd.messages  \
-    && ln -sf /dev/stdout /opt/nessus/var/nessus/logs/www_server.log    \
-    && ln -sf /dev/stdout /opt/nessus/var/nessus/logs/backend.log       \
+    && mkdir -p /first_start                                            \
+    && cp -r /opt/nessus/ /first_start/                                 \
     && echo -e "export PATH=$PATH:/opt/nessus/bin:/opt/nessus/sbin" >> /etc/bashrc
 
 EXPOSE 8834

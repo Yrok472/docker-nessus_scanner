@@ -3,7 +3,7 @@ language: generic
 services: docker
 before_install:
   - sudo pip install csup
-  - export RPRE=stevemcgrath
+  - export RPRE=yrok472
   - export RNAME=nessus_scanner
 script:
   - docker build --no-cache . -t nessus_scanner:latest

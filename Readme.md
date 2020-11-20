@@ -1,11 +1,7 @@
-# Unofficial Nessus Scanner [![Build Status][status]][travis][![Docker Stars][stars]][docker][![Docker Pulls][pulls]][docker]
+# Unofficial Nessus Scanner
 
-[status]: https://travis-ci.org/SteveMcGrath/docker-nessus_scanner.svg?branch=master
-[stars]: https://img.shields.io/docker/stars/stevemcgrath/nessus_scanner.svg
-[pulls]: https://img.shields.io/docker/pulls/stevemcgrath/nessus_scanner.svg
-[github]: https://github.com/SteveMcGrath/docker-nessus_scanner
-[docker]: https://hub.docker.com/r/stevemcgrath/nessus_scanner/
-[travis]: https://travis-ci.org/SteveMcGrath/docker-nessus_scanner
+[github]: https://github.com/Yrok472/docker-nessus_scanner/
+[docker]: https://hub.docker.com/r/yrok472/nessus_scanner/
 
 Tenable's Nessus Scanner is a vulnerability scanner that looks for known vulnerabilities, malware, configuration issues, etc. both through network inspection of hosts and through authenticated analysis of the host itself.  For more information about Nessus, please consult the following links:
 
@@ -14,20 +10,21 @@ Tenable's Nessus Scanner is a vulnerability scanner that looks for known vulnera
 
 # Build files
 
-The github repository for the build files is located [here](https://github.com/stevemcgrath/docker-nessus_scanner).
+The github repository for the build files is located [here](https://github.com/Yrok472/docker-nessus_scanner).
 
 # Supported tags
 
-Each image is tagged with the major, minor, and patch releases.  The most current image is always tagged as "latest".  For the current listing of tags, please refer to the [tags tab](https://hub.docker.com/r/stevemcgrath/nessus_scanner/tags/) for a current listing.
+Each image is tagged with the major, minor, and patch releases.  The most current image is always tagged as "latest".  For the current listing of tags, please refer to the [tags tab](https://hub.docker.com/r/yrok472/nessus_scanner/tags/) for a current listing.
 
 # Usage
 
 ```
 docker run -dt \
     -e LINKING_KEY={LINKING_KEY}\
+    -e PRODUCT_INITIALIZATION={TRUE_OR_FALSE}\
     -e SCANNER_NAME={SCANNER_NAME}\
     --name nessus_scanner
-    stevemcgrath/nessus_scanner:latest
+    yrok472/nessus_scanner:latest
 ```
 
 If running from a Kubernetes pod make sure to set `tty: true`.
@@ -42,6 +39,7 @@ If running from a Kubernetes pod make sure to set `tty: true`.
 
 ## **One** of the following **MUST** be set:
 
+* **PRODUCT_INITIALIZATION** _**(required)**_ - Initialize new installation or not. Actual if you use PVC in kubernetes
 * **LINKING_KEY** _**(required)**_ - Linking key to use for linking the scanner to Tenable.io
 * **LICENSE** _**(required)**_ - Activation code (if not a Tenable.io linked scanner)
 * **SECURITYCENTER** _**(required)**_ - If the scanner is to be SecurityCenter linked, then simply set this variable to `Yes` instead of setting a _LICENSE_ or _LINKING_KEY_ variable.
